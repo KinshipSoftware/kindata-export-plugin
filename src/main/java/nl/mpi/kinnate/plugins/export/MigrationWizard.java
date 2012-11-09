@@ -3,6 +3,7 @@ package nl.mpi.kinnate.plugins.export;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import javax.swing.ProgressMonitor;
 import nl.mpi.arbil.plugin.PluginBugCatcher;
 import nl.mpi.arbil.plugin.PluginDialogHandler;
 import nl.mpi.arbil.plugin.PluginException;
@@ -35,18 +36,27 @@ public class MigrationWizard {
         File newAppDir = sessionStorage.getProjectWorkingDirectory();
         // if the old exists and the new does not or is empty then offer migration 
         if (oldAppDir.exists() && (!newAppDir.exists() || newAppDir.list().length < 3)) {
-            if (!oldAppExportFile.exists()) {
-                // create export file
-                createDatabase(oldAppDir, oldAppExportFile);
+            if (dialogHandler.showConfirmDialogBox("This is a new version of KinOath.\nWould you like to import the data from the last version?\n", "Migration Wizard")) {
+                if (!oldAppExportFile.exists()) {
+                    // create export file
+                    createDatabase(oldAppDir, oldAppExportFile);
+                }
+                // return the export file
+                return oldAppExportFile;
+            } else {
+                dialogHandler.addMessageDialogToQueue("If you change you mind, you can migrate your data from the old version manually\nvia the plugins menu and 'single file export' followed by an import.", "Migration Wizard");
+                return null;
             }
-            // return the export file
-            return oldAppExportFile;
         } else {
             return null;
         }
     }
 
     private void createDatabase(final File importDirectory, final File exportFile) {
+        ProgressMonitor pogressMonitor = new ProgressMonitor(null, "Migration Wizard", "cteating temporary database", 0, 5);
+        pogressMonitor.setMillisToDecideToPopup(0);
+        pogressMonitor.setMillisToPopup(0);
+        pogressMonitor.setProgress(1);
 //        new Thread() {
 //            @Override
 //            public void run() {
@@ -56,22 +66,36 @@ public class MigrationWizard {
             gedcomExport.dropAndCreate(importDirectory, "*.kmdi");
 //                    dialogHandler.append("Completed cteating temporary database\n");
             //                    resultsText.setText("Generating export contents.\n");
+            pogressMonitor.setNote("generating export file.");
+            pogressMonitor.setProgress(2);
+            if (pogressMonitor.isCanceled()) {
+                return;
+            }
             final String generateExportResult = gedcomExport.generateExport(gedcomExport.getGedcomQuery());
 //                    resultsText.setText("Creating export file: " + saveFile.toString() + "\n");
+            pogressMonitor.setNote("saving export file.");
+            pogressMonitor.setProgress(3);
+            if (pogressMonitor.isCanceled()) {
+                return;
+            }
             FileWriter fileWriter = new FileWriter(exportFile);
             fileWriter.write(generateExportResult);
             fileWriter.close();
-//                    resultsText.setText("Export file complete.\n");
-            dialogHandler.addMessageDialogToQueue("Save Complete", "Save File");
+            pogressMonitor.setNote("save complete.");
+            pogressMonitor.setProgress(4);
+            if (pogressMonitor.isCanceled()) {
+                return;
+            }
         } catch (IOException exception) {
 //                    resultsText.setText("Error Saving File.\n");
-            dialogHandler.addMessageDialogToQueue(exception.getMessage(), "Error Saving File");
+            dialogHandler.addMessageDialogToQueue("Error Saving File\n" + exception.getMessage(), "Migration Wizard");
             bugCatcher.logException(new PluginException(exception.getMessage()));
         } catch (QueryException exception) {
 //                    resultsText.setText("Error Creating Export.\n");
-            dialogHandler.addMessageDialogToQueue(exception.getMessage(), "Error Creating Export");
+            dialogHandler.addMessageDialogToQueue("Error Creating Export\n" + exception.getMessage(), "Migration Wizard");
             bugCatcher.logException(new PluginException(exception.getMessage()));
         }
+        pogressMonitor.setProgress(5);
 //            }
 //        }.start();
     }
