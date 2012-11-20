@@ -3,19 +3,30 @@ package nl.mpi.kinnate.plugins.export.ui;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.Map;
 import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
+import javax.swing.filechooser.FileFilter;
+import nl.mpi.arbil.plugin.PluginBugCatcher;
 import nl.mpi.arbil.plugin.PluginDialogHandler;
+import nl.mpi.arbil.plugin.PluginDialogHandler.DialogueType;
+import nl.mpi.arbil.plugin.PluginException;
+import nl.mpi.arbil.plugin.PluginSessionStorage;
+import nl.mpi.kinnate.entityindexer.CollectionExport;
 import nl.mpi.kinnate.entityindexer.QueryException;
 import nl.mpi.kinnate.plugins.export.GedcomExport;
 
 /**
- * Document : ExportPanel Created on : Jul 18, 2012, 5:37:51 PM Author : Peter
- * Withers
+ * Document : ExportPanel Created on : Jul 18, 2012, 5:37:51 PM
+ *
+ * @author Peter Withers
  */
 public class ExportPanel extends JPanel implements ActionListener {
 
@@ -82,19 +93,55 @@ public class ExportPanel extends JPanel implements ActionListener {
         }
     }
 
-//    static public void main(String[] args) {
-//        JFrame jFrame = new JFrame("Fields Panel Test");
-//        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    static public void main(String[] args) {
+        JFrame jFrame = new JFrame("Fields Panel Test");
+        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //        final PluginDialogHandler arbilWindowManager = new ArbilWindowManager();
-////        final KinSessionStorage kinSessionStorage = new KinSessionStorage(new ApplicationVersionManager(new KinOathVersion()));
-////        arbilWindowManager.setSessionStorage(kinSessionStorage);
-//        final CollectionExport entityCollection = new CollectionExport();
-//        final GedcomExport gedcomExport = new GedcomExport(entityCollection);
-//        JTabbedPane jTabbedPane = new JTabbedPane();
-//        ExportPanel exportPanel = new ExportPanel(arbilWindowManager, gedcomExport, jTabbedPane);
-//        jTabbedPane.add("Import", exportPanel);
-//        jFrame.setContentPane(jTabbedPane);
-//        jFrame.pack();
-//        jFrame.setVisible(true);
-//    }
+//        final KinSessionStorage kinSessionStorage = new KinSessionStorage(new ApplicationVersionManager(new KinOathVersion()));
+//        arbilWindowManager.setSessionStorage(kinSessionStorage);
+        final CollectionExport entityCollection = new CollectionExport(new PluginBugCatcher() {
+            public void logException(PluginException exception) {
+                System.err.println(exception.getMessage());;
+            }
+        }, new PluginSessionStorage() {
+            public File getApplicationSettingsDirectory() {
+                return new File("/Users/petwit2/.arbil/");
+            }
+
+            public File getProjectDirectory() {
+                return new File("/Users/petwit2/.arbil/");
+            }
+
+            public File getProjectWorkingDirectory() {
+                return new File("/Users/petwit2/.arbil/ArbilWorkingFiles/");
+            }
+        });
+        final GedcomExport gedcomExport = new GedcomExport(entityCollection);
+        JTabbedPane jTabbedPane = new JTabbedPane();
+        ExportPanel exportPanel = new ExportPanel(new PluginDialogHandler() {
+            public void addMessageDialogToQueue(String messageString, String messageTitle) {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+
+            public boolean showConfirmDialogBox(String messageString, String messageTitle) {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+
+            public int showDialogBox(String message, String title, int optionType, int messageType) {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+
+            public int showDialogBox(String message, String title, int optionType, int messageType, Object[] options, Object initialValue) {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+
+            public File[] showFileSelectBox(String titleText, boolean directorySelectOnly, boolean multipleSelect, Map<String, FileFilter> fileFilterMap, DialogueType dialogueType, JComponent customAccessory) {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+        }, gedcomExport, jTabbedPane);
+        jTabbedPane.add("Import", exportPanel);
+        jFrame.setContentPane(jTabbedPane);
+        jFrame.pack();
+        jFrame.setVisible(true);
+    }
 }

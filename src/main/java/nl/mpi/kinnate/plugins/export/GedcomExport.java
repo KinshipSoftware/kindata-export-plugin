@@ -6,8 +6,9 @@ import nl.mpi.kinnate.entityindexer.CollectionExport;
 import nl.mpi.kinnate.entityindexer.QueryException;
 
 /**
- * Document : GedcomExport Created on : Jul 3, 2012, 1:16:57 PM Author : Peter
- * Withers
+ * Document : GedcomExport Created on : Jul 3, 2012, 1:16:57 PM
+ *
+ * @author Peter Withers
  */
 public class GedcomExport {
 
@@ -20,7 +21,7 @@ public class GedcomExport {
     private String getHeader() {
 //        final KinOathVersion kinOathVersion = new KinOathVersion();
         return "let $headerString := \"0 HEAD\n"
-//                + "1 KinOathVersion " + kinOathVersion.currentMajor + "." + kinOathVersion.currentMinor + "." + kinOathVersion.currentRevision + "\n"
+                //                + "1 KinOathVersion " + kinOathVersion.currentMajor + "." + kinOathVersion.currentMinor + "." + kinOathVersion.currentRevision + "\n"
                 + "1 ExportDate " + new Date().toString() + "\n\"\n";
     }
 
@@ -113,7 +114,7 @@ public class GedcomExport {
 //                + "return  $colNames\n";
         return "for $xpathString in distinct-values(\n"
                 // + "for $entityNode in collection('nl-mpi-kinnate')/*:Kinnate/*:Entity[*:Identifier/text() != '']/descendant-or-self::*\n"
-                + "for $entityNode in collection('nl-mpi-kinnate')/*:Kinnate/*:CustomData/descendant-or-self::*[text() != '']\n"
+                + "for $entityNode in collection('" + entityCollection.getDatabaseName() + "')/*:Kinnate/*:CustomData/descendant-or-self::*[text() != '']\n"
                 + "return path($entityNode)\n"
                 + ")\n"
                 + "return\n"
@@ -175,7 +176,6 @@ public class GedcomExport {
 //        throw new UnsupportedOperationException();
         return true;
     }
-
 //    static public void main(String[] args) {
 //        JFrame jFrame = new JFrame("CMDI/IMDI/KMDI Export Tool");
 //        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

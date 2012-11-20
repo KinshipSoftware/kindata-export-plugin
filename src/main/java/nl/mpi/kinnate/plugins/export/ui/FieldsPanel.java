@@ -3,6 +3,7 @@ package nl.mpi.kinnate.plugins.export.ui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -11,14 +12,17 @@ import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import nl.mpi.arbil.plugin.PluginBugCatcher;
+import nl.mpi.arbil.plugin.PluginException;
+import nl.mpi.arbil.plugin.PluginSessionStorage;
 import nl.mpi.kinnate.entityindexer.CollectionExport;
 import nl.mpi.kinnate.entityindexer.QueryException;
 import nl.mpi.kinnate.plugins.export.GedcomExport;
 
 /**
- * Document : FieldsPanel
  * Created on : Jul 18, 2012, 4:09:37 PM
- * Author : Peter Withers
+ *
+ * @author Peter Withers
  */
 public class FieldsPanel extends JPanel {
 
@@ -65,7 +69,6 @@ public class FieldsPanel extends JPanel {
                 fieldsPanel.add(new JLabel(selectedFieldPaths[currentIndex]));
                 fieldTextAreas[currentIndex] = new JTextArea(selectedFieldNames[currentIndex]);
                 fieldTextAreas[currentIndex].getDocument().addDocumentListener(new DocumentListener() {
-
                     public void changedUpdate(DocumentEvent e) {
                         namesAreUnique();
                     }
@@ -106,7 +109,6 @@ public class FieldsPanel extends JPanel {
             fieldNames.add(currentText);
         }
         SwingUtilities.invokeLater(new Runnable() {
-
             public void run() {
                 for (int fieldCounter = 0; fieldCounter < fieldTextAreas.length; fieldCounter++) {
                     if (validFields[fieldCounter]) {
@@ -120,18 +122,34 @@ public class FieldsPanel extends JPanel {
         return namesAreUnique;
     }
 
-//    static public void main(String[] args) {
-//        JFrame jFrame = new JFrame("Fields Panel Test");
-//        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-////        final ArbilWindowManager arbilWindowManager = new ArbilWindowManager();
-////        final KinSessionStorage kinSessionStorage = new KinSessionStorage(new ApplicationVersionManager(new KinOathVersion()));
-////        arbilWindowManager.setSessionStorage(kinSessionStorage);
-//        final CollectionExport entityCollection = new CollectionExport();
-//        final GedcomExport gedcomExport = new GedcomExport(entityCollection);
-//        FieldsPanel fieldsPanel = new FieldsPanel(gedcomExport);
-//        fieldsPanel.populateFields();
-//        jFrame.setContentPane(fieldsPanel);
-//        jFrame.pack();
-//        jFrame.setVisible(true);
-//    }
+    static public void main(String[] args) {
+        JFrame jFrame = new JFrame("Fields Panel Test");
+        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        final ArbilWindowManager arbilWindowManager = new ArbilWindowManager();
+//        final KinSessionStorage kinSessionStorage = new KinSessionStorage(new ApplicationVersionManager(new KinOathVersion()));
+//        arbilWindowManager.setSessionStorage(kinSessionStorage);
+        final CollectionExport entityCollection = new CollectionExport(new PluginBugCatcher() {
+            public void logException(PluginException exception) {
+                System.err.println(exception.getMessage());;
+            }
+        }, new PluginSessionStorage() {
+            public File getApplicationSettingsDirectory() {
+                return new File("/Users/petwit2/.arbil/");
+            }
+
+            public File getProjectDirectory() {
+                return new File("/Users/petwit2/.arbil/");
+            }
+
+            public File getProjectWorkingDirectory() {
+                return new File("/Users/petwit2/.arbil/ArbilWorkingFiles/");
+            }
+        });
+        final GedcomExport gedcomExport = new GedcomExport(entityCollection);
+        FieldsPanel fieldsPanel = new FieldsPanel(gedcomExport);
+        fieldsPanel.populateFields();
+        jFrame.setContentPane(fieldsPanel);
+        jFrame.pack();
+        jFrame.setVisible(true);
+    }
 }
