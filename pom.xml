@@ -123,7 +123,7 @@
         <dependency>
             <groupId>nl.mpi</groupId>
             <artifactId>plugins-core</artifactId>
-            <version>0.0.34174-stable</version>
+            <version>1.0.34174-stable</version>
         </dependency>        
     </dependencies>
     <repositories>
