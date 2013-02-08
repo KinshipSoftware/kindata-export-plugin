@@ -15,12 +15,12 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import nl.mpi.arbil.plugin.PluginBugCatcher;
-import nl.mpi.arbil.plugin.PluginDialogHandler;
-import nl.mpi.arbil.plugin.PluginException;
-import nl.mpi.arbil.plugin.PluginSessionStorage;
+import nl.mpi.flap.kinnate.entityindexer.QueryException;
+import nl.mpi.flap.plugin.PluginBugCatcher;
+import nl.mpi.flap.plugin.PluginDialogHandler;
+import nl.mpi.flap.plugin.PluginException;
+import nl.mpi.flap.plugin.PluginSessionStorage;
 import nl.mpi.kinnate.entityindexer.CollectionExport;
-import nl.mpi.kinnate.entityindexer.QueryException;
 import nl.mpi.kinnate.plugins.export.GedcomExport;
 
 /**

@@ -4,12 +4,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.ProgressMonitor;
-import nl.mpi.arbil.plugin.PluginBugCatcher;
-import nl.mpi.arbil.plugin.PluginDialogHandler;
-import nl.mpi.arbil.plugin.PluginException;
-import nl.mpi.arbil.plugin.PluginSessionStorage;
+import nl.mpi.flap.kinnate.entityindexer.QueryException;
+import nl.mpi.flap.plugin.PluginBugCatcher;
+import nl.mpi.flap.plugin.PluginDialogHandler;
+import nl.mpi.flap.plugin.PluginException;
+import nl.mpi.flap.plugin.PluginSessionStorage;
 import nl.mpi.kinnate.entityindexer.CollectionExport;
-import nl.mpi.kinnate.entityindexer.QueryException;
 
 /**
  * Created on : Nov 9, 2012, 1:40:55 PM

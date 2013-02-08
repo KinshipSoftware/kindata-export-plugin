@@ -2,8 +2,8 @@ package nl.mpi.kinnate.plugins.export;
 
 import java.io.File;
 import java.util.Date;
+import nl.mpi.flap.kinnate.entityindexer.QueryException;
 import nl.mpi.kinnate.entityindexer.CollectionExport;
-import nl.mpi.kinnate.entityindexer.QueryException;
 
 /**
  * Document : GedcomExport Created on : Jul 3, 2012, 1:16:57 PM
