@@ -17,7 +17,7 @@
     The build number is only required when depending on the output in other projects or building to the server.-->
     <version>${plugin.majorVersion}.${plugin.minorVersion}-${plugin.branch}-SNAPSHOT</version>
 <!--    <version>${plugin.majorVersion}.${plugin.minorVersion}.34247-${plugin.branch}</version>-->
-    <name>Export Plugin</name>
+    <name>Metadata Export Plugin</name>
     <url>http://maven.apache.org</url>
     <build>
         <resources>
