@@ -5,9 +5,9 @@
         <output.directory>${project.build.directory}</output.directory>
         <output.jarname>${project.build.finalName}</output.jarname>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <plugin.majorVersion>0</plugin.majorVersion> 
-        <plugin.minorVersion>3</plugin.minorVersion> 
-        <plugin.branch>pretesting</plugin.branch> 
+        <plugin.majorVersion>1</plugin.majorVersion> 
+        <plugin.minorVersion>0</plugin.minorVersion> 
+        <plugin.branch>stable</plugin.branch> 
     </properties>
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.mpi</groupId>
@@ -15,8 +15,8 @@
     <packaging>jar</packaging>
     <!--    Either use the snapshot version of manually enter the current build number. 
     The build number is only required when depending on the output in other projects or building to the server.-->
-    <version>${plugin.majorVersion}.${plugin.minorVersion}-${plugin.branch}-SNAPSHOT</version>
-<!--    <version>${plugin.majorVersion}.${plugin.minorVersion}.34247-${plugin.branch}</version>-->
+    <!--<version>${plugin.majorVersion}.${plugin.minorVersion}-${plugin.branch}-SNAPSHOT</version>-->
+    <version>${plugin.majorVersion}.${plugin.minorVersion}.34249-${plugin.branch}</version>
     <name>Metadata Export Plugin</name>
     <url>http://maven.apache.org</url>
     <build>
@@ -123,7 +123,7 @@
         <dependency>
             <groupId>nl.mpi</groupId>
             <artifactId>plugins-core</artifactId>
-            <version>1.1-pretesting-SNAPSHOT</version>
+            <version>1.1.35868-stable</version>
         </dependency>        
     </dependencies>
     <repositories>
