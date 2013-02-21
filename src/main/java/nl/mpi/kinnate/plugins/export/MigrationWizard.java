@@ -28,9 +28,9 @@ public class MigrationWizard {
         this.sessionStorage = sessionStorage;
     }
 
-    public File checkAndOfferMigration() {
+    public File checkAndOfferMigration(int majorVersion, int minorVersion) {
         // look for an old version of the application directory
-        File oldAppDir = new File(sessionStorage.getApplicationSettingsDirectory().getParentFile(), ".kinoath-1-0");
+        File oldAppDir = new File(sessionStorage.getApplicationSettingsDirectory().getParentFile(), ".kinoath-" + majorVersion + "-" + (minorVersion - 1));
         File oldAppExportFile = new File(oldAppDir, "MigrationWizard.kinoath");
         // look for a new version of the application directory
         File newAppDir = sessionStorage.getProjectWorkingDirectory();
