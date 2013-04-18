@@ -28,14 +28,14 @@ public class MigrationWizard {
         this.sessionStorage = sessionStorage;
     }
 
-    public File checkAndOfferMigration(int majorVersion, int minorVersion) {
+    public File checkAndOfferMigration(int majorVersion, int minorVersion, File projectWorkingDirectory) {
         // look for an old version of the application directory
         File oldAppDir = new File(sessionStorage.getApplicationSettingsDirectory().getParentFile(), ".kinoath-" + majorVersion + "-" + (minorVersion - 1));
         File oldAppExportFile = new File(oldAppDir, "MigrationWizard.kinoath");
         // look for a new version of the application directory
-        File newAppDir = sessionStorage.getProjectWorkingDirectory();
+//        File newAppDir = sessionStorage.getProjectWorkingDirectory();
         // if the old exists and the new does not or is empty then offer migration 
-        if (oldAppDir.exists() && (!newAppDir.exists() || newAppDir.list().length < 3)) {
+        if (oldAppDir.exists() && (!projectWorkingDirectory.exists() || projectWorkingDirectory.list().length < 3)) {
             if (dialogHandler.showConfirmDialogBox("This is a new version of KinOath.\nWould you like to import the data from the last version?\n", "Migration Wizard")) {
                 if (!oldAppExportFile.exists()) {
                     // create export file
