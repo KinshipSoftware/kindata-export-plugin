@@ -45,12 +45,16 @@ public class KinOathExportPanel extends JPanel {
         final String browseOption = "<browse>";
         final JComboBox locationSelect = new JComboBox(new String[]{browseOption});
         File defaultKinOathDirectory = sessionStorage.getProjectDirectory();
-        for (File currentFile : defaultKinOathDirectory.getParentFile().listFiles(new FileFilter() {
-            public boolean accept(File pathname) {
-                return pathname.getName().startsWith(".kinoath"); // || pathname.getName().startsWith(".arbil");
+        if (defaultKinOathDirectory != null && defaultKinOathDirectory.getParentFile() != null) {
+            for (File currentFile : defaultKinOathDirectory.getParentFile().listFiles(new FileFilter() {
+                public boolean accept(File pathname) {
+                    return pathname.getName().startsWith(".kinoath"); // || pathname.getName().startsWith(".arbil");
+                }
+            })) {
+                locationSelect.addItem(currentFile.toString());
             }
-        })) {
-            locationSelect.addItem(currentFile.toString());
+        } else if (defaultKinOathDirectory != null) {
+            locationSelect.addItem(defaultKinOathDirectory.toString());
         }
         final JTextArea resultsText = new JTextArea();
         final JButton saveAsButton = new JButton("Save KinOath Export File");
