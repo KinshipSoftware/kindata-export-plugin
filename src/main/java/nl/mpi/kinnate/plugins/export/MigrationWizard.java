@@ -32,6 +32,10 @@ public class MigrationWizard {
         // look for an old version of the application directory
         File oldAppDir = new File(sessionStorage.getApplicationSettingsDirectory().getParentFile(), ".kinoath-" + majorVersion + "-" + (minorVersion - 1));
         File oldAppExportFile = new File(oldAppDir, "MigrationWizard.kinoath");
+        File oldAppExportDeclinedFile = new File(oldAppDir, "MigrationWizard.declined");
+        if (oldAppExportDeclinedFile.exists()) {
+            return null;
+        }
         // look for a new version of the application directory
         File newAppDir = sessionStorage.getProjectWorkingDirectory();
         // if the old exists and the new does not or is empty then offer migration 
@@ -44,6 +48,12 @@ public class MigrationWizard {
                 // return the export file
                 return oldAppExportFile;
             } else {
+                try {
+                    oldAppExportDeclinedFile.createNewFile();
+                } catch (IOException exception) {
+                    // not much to do here, but if this occurs then the user will be offered again
+                    System.out.println("Failed to create the file (so the user will be offered to import again): " + oldAppExportDeclinedFile);
+                }
                 dialogHandler.addMessageDialogToQueue("If you change you mind, you can migrate your data from the old version manually\nvia the plugins menu and 'single file export' followed by an import.", "Migration Wizard");
                 return null;
             }
