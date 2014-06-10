@@ -16,7 +16,7 @@
     <!--    Either use the snapshot version of manually enter the current build number. 
     The build number is only required when depending on the output in other projects or building to the server.-->
     <version>${plugin.majorVersion}.${plugin.minorVersion}-${plugin.branch}-SNAPSHOT</version>
-<!--    <version>${plugin.majorVersion}.${plugin.minorVersion}.34247-${plugin.branch}</version>-->
+    <!--    <version>${plugin.majorVersion}.${plugin.minorVersion}.34247-${plugin.branch}</version>-->
     <name>Metadata Export Plugin</name>
     <url>http://maven.apache.org</url>
     <build>
@@ -86,9 +86,9 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>com.google.code.maven-svn-revision-number-plugin</groupId>
-                <artifactId>maven-svn-revision-number-plugin</artifactId>
-                <version>1.7</version>
+                <groupId>nl.mpi</groupId>
+                <artifactId>version-control-check</artifactId>
+                <version>1.0.21-testing</version>
                 <executions>
                     <execution>
                         <goals>
@@ -97,15 +97,19 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <entries>
-                        <entry>
-                            <path>${basedir}/src</path>
-                            <!-- this will populate "plugin.version.revision" -->
-                            <prefix>plugin.version</prefix>
-                        </entry>
-                    </entries>
+                    <verbose>true</verbose>
+                    <vcsType>git</vcsType>
+                    <allowSnapshots>true</allowSnapshots>
+                    <projectDirectory>${project.basedir}</projectDirectory>
+                    <majorVersion>1</majorVersion>
+                    <minorVersion>1</minorVersion>
+                    <buildType>pretesting</buildType>
+                    <propertiesPrefix>application</propertiesPrefix>
+                    <shortVersionModules>
+                        <param>kinoath-parent</param>
+                    </shortVersionModules>
                 </configuration>
-            </plugin>       
+            </plugin>
         </plugins>
     </build>
     <dependencies>
@@ -118,14 +122,27 @@
         <dependency>
             <groupId>org.basex</groupId>
             <artifactId>basex</artifactId>
-            <version>7.3.1</version>
+            <version>7.8.2</version>
         </dependency>    
         <dependency>
             <groupId>nl.mpi</groupId>
             <artifactId>plugins-core</artifactId>
-            <version>1.2-pretesting-SNAPSHOT</version>
+            <version>1.2.39113-testing</version>
         </dependency>        
     </dependencies>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>MPI</id>
+            <name>MPI LAT Repository</name>
+            <url>https://lux15.mpi.nl/nexus/content/groups/public/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </pluginRepository>
+    </pluginRepositories>
     <repositories>
         <repository>
             <id>MPI</id>

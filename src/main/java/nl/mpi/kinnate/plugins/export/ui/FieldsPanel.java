@@ -133,6 +133,15 @@ public class FieldsPanel extends JPanel {
                 System.err.println(exception.getMessage());;
             }
         }, new PluginSessionStorage() {
+
+            public String loadString(String string) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            public void saveString(String string, String string1) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+            
             public File getApplicationSettingsDirectory() {
                 return new File("/Users/petwit2/.arbil/");
             }
