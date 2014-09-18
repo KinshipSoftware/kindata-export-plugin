@@ -14,7 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import nl.mpi.flap.plugin.PluginDialogHandler;
 import nl.mpi.flap.plugin.PluginSessionStorage;
-import sun.awt.HorizBagLayout;
 
 /**
  * @since Sep 18, 2014 6:12:00 AM (creation date)
@@ -27,7 +26,7 @@ public class FileSelectPanel extends JPanel {
     public FileSelectPanel(final PluginDialogHandler dialogHandler, final PluginSessionStorage sessionStorage, final String pluginName) {
         this.setLayout(new BorderLayout());
         final JLabel fileLabel = new JLabel();
-        final String lastFile = sessionStorage.loadString("nl.mpi.kinnate.plugins.export." + pluginName);
+        final String lastFile = sessionStorage.loadString("nl.mpi.kinnate.plugins.export." + pluginName + ".exportFile");
         if (lastFile != null) {
             exportFile = new File(lastFile);
             fileLabel.setText(exportFile.toString());
@@ -42,7 +41,7 @@ public class FileSelectPanel extends JPanel {
                 if (saveFile != null && saveFile.length > 0) {
                     exportFile = saveFile[0];
                     fileLabel.setText(exportFile.toString());
-                    sessionStorage.saveString("nl.mpi.kinnate.plugins.export." + pluginName, exportFile.toString());
+                    sessionStorage.saveString("nl.mpi.kinnate.plugins.export." + pluginName + ".exportFile", exportFile.toString());
                 }
 
             }
