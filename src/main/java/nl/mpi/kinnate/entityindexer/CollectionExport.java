@@ -32,9 +32,10 @@ public class CollectionExport implements CollectionExporter {
         // the db path is now set with a java system property on start up, this location dbpath "Points to the directory in which ALL databases are located."
     }
 
-    public String listDatabases() throws BaseXException {
+    public String[] listDatabases() throws BaseXException {
         synchronized (databaseLock) {
-            return new List().execute(context);
+            // todo: make this list the project names
+            return new List().execute(context).split("\\W");
         }
     }
 
