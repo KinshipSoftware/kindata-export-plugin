@@ -11,6 +11,7 @@ import org.basex.core.Context;
 import org.basex.core.cmd.Close;
 import org.basex.core.cmd.CreateDB;
 import org.basex.core.cmd.DropDB;
+import org.basex.core.cmd.List;
 import org.basex.core.cmd.Open;
 import org.basex.core.cmd.Set;
 import org.basex.core.cmd.XQuery;
@@ -28,21 +29,12 @@ public class CollectionExport implements CollectionExporter {
 
     public CollectionExport(PluginBugCatcher bugCatcher, PluginSessionStorage sessionStorage) {
         this.bugCatcher = bugCatcher;
-        // make sure the database exists
-        try {
-            synchronized (databaseLock) {
-                new Set("dbpath", new File(sessionStorage.getApplicationSettingsDirectory(), "BaseXData")).execute(context);
-                new Open(databaseName).execute(context);
-                new Close().execute(context);
-            }
-        } catch (BaseXException baseXException) {
-            try {
-                synchronized (databaseLock) {
-                    new CreateDB(databaseName).execute(context);
-                }
-            } catch (BaseXException baseXException2) {
-                bugCatcher.logException(new PluginException("failed to create database: " + databaseName + " : " + baseXException2.getMessage()));
-            }
+        // the db path is now set with a java system property on start up, this location dbpath "Points to the directory in which ALL databases are located."
+    }
+
+    public String listDatabases() throws BaseXException {
+        synchronized (databaseLock) {
+            return new List().execute(context);
         }
     }
 
