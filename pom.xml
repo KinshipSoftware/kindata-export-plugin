@@ -7,7 +7,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <plugin.majorVersion>1</plugin.majorVersion> 
         <plugin.minorVersion>1</plugin.minorVersion> 
-        <plugin.branch>pretesting</plugin.branch> 
+        <plugin.branch>testing</plugin.branch> 
     </properties>
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.mpi</groupId>
@@ -103,7 +103,7 @@
                     <projectDirectory>${project.basedir}</projectDirectory>
                     <majorVersion>1</majorVersion>
                     <minorVersion>1</minorVersion>
-                    <buildType>pretesting</buildType>
+                    <buildType>testing</buildType>
                     <propertiesPrefix>application</propertiesPrefix>
                     <shortVersionModules>
                         <param>kinoath-parent</param>
