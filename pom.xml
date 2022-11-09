@@ -131,17 +131,6 @@
         </dependency>        
     </dependencies>
     <pluginRepositories>
-            <repository>
-            <id>Frinex</id>
-            <name>Frinex Repository</name>
-            <url>https://kinshipsoftware.github.io/FLAP/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
 <!--        <pluginRepository>
             <id>MPI</id>
             <name>MPI LAT Repository</name>
@@ -154,8 +143,19 @@
             </releases>
         </pluginRepository>-->
     </pluginRepositories>
-<!--    <repositories>
+   <repositories>
         <repository>
+            <id>Frinex</id>
+            <name>Frinex Repository</name>
+            <url>https://kinshipsoftware.github.io/FLAP/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+        <!-- <repository>
             <id>MPI</id>
             <name>MPI LAT Repository</name>
             <url>http://lux15.mpi.nl/nexus/content/groups/public/</url>
@@ -164,6 +164,6 @@
             <id>basex</id>
             <name>BaseX Maven Repository</name>
             <url>http://files.basex.org/maven</url>
-        </repository>
-    </repositories>-->
+        </repository> -->
+    </repositories>
 </project>
