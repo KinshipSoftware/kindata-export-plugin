@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata modelVersion="1.1.0">
+  <groupId>nl.mpi</groupId>
+  <artifactId>kinnate-plugins-export</artifactId>
+  <versioning>
+    <lastUpdated>20221109202057</lastUpdated>
+    <snapshot>
+      <timestamp>20221109.202057</timestamp>
+      <buildNumber>3</buildNumber>
+    </snapshot>
+    <snapshotVersions>
+      <snapshotVersion>
+        <extension>jar</extension>
+        <value>1.2-testing-20221109.202057-3</value>
+        <updated>20221109202057</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <extension>pom</extension>
+        <value>1.2-testing-20221109.202057-3</value>
+        <updated>20221109202057</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <classifier>sources</classifier>
+        <extension>jar</extension>
+        <value>1.2-testing-20221109.202057-3</value>
+        <updated>20221109202057</updated>
+      </snapshotVersion>
+    </snapshotVersions>
+  </versioning>
+  <version>1.2-testing-SNAPSHOT</version>
+</metadata>
