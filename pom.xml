@@ -131,6 +131,17 @@
         </dependency>        
     </dependencies>
     <pluginRepositories>
+        <pluginRepository>
+            <id>VersionControlCheck</id>
+            <name>VersionControlCheck Repository</name>
+            <url>https://kinshipsoftware.github.io/VersionControlCheck/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </pluginRepository>
 <!--        <pluginRepository>
             <id>MPI</id>
             <name>MPI LAT Repository</name>
