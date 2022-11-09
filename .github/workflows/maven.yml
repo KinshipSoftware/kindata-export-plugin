@@ -29,7 +29,6 @@ jobs:
             sed -i 's|<versionCheck.buildType>testing</versionCheck.buildType>|<versionCheck.buildType>stable</versionCheck.buildType>|g' ./pom.xml;
             mvn clean test deploy -DaltDeploymentRepository=snapshot-repo::default::file:../snapshots;
             git rev-list --count --all;
-            sed -i '/core/{n;s/-stable-SNAPSHOT/.'$(git rev-list --count --all )'-stable/}' ./pom.xml;
             mvn clean test deploy -DaltDeploymentRepository=snapshot-repo::default::file:../snapshots;
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
